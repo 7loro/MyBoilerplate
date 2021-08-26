@@ -12,6 +12,7 @@ include(
     ":feature:home",
     ":feature:todo",
     ":feature:settings",
+    ":shared"
 )
 
 // Sharing dependency versions
@@ -68,6 +69,8 @@ dependencyResolutionManagement {
             alias("appcompat").to("androidx.appcompat:appcompat:1.+")
             alias("material").to("com.google.android.material:material:1.+")
             alias("constraintLayout").to("androidx.constraintlayout:constraintlayout:2.+")
+            alias("lifecycle").to("androidx.lifecycle:lifecycle-common-java8:2.+")
+            alias("cardview").to("androidx.cardview:cardview:1.+")
 
             val navigationVersion: String by settings
             version("navigation", navigationVersion)
@@ -112,3 +115,4 @@ dependencyResolutionManagement {
 include(":feature:home")
 include(":feature:todo")
 include(":feature:settings")
+include(":shared")

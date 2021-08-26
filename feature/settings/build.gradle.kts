@@ -24,16 +24,22 @@ android {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
         }
     }
+
+    buildFeatures.viewBinding = true
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = AndroidConfig.KOTLIN_OPTION_JVM_TARGET
     }
 }
 
 dependencies {
+    implementation(project(":shared"))
+
     api(libs.bundles.ktx)
     api(libs.appcompat)
     api(libs.material)

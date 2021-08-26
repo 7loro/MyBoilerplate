@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/todoNavGraph"
+    app:startDestination="@id/todoListFragment">
+
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="com.casper.myboilerplate.todo.presentation.list.TodoListFragment"
+        android:label="TodoListFragment">
+        <action
+            android:id="@+id/actionTodoListFragmentToTodoDetailFragment"
+            app:destination="@id/todoDetailFragment"/>
+        <action
+            android:id="@+id/actionTodoListFragmentToTodoAddFragment"
+            app:destination="@id/todoAddFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/todoDetailFragment"
+        android:name="com.casper.myboilerplate.todo.presentation.detail.TodoDetailFragment"
+        android:label="TodoDetailFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="desc"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/todoAddFragment"
+        android:name="com.casper.myboilerplate.todo.presentation.add.TodoAddFragment"
+        android:label="TodoAddFragment" />
+
+</navigation>
