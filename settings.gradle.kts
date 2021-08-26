@@ -8,7 +8,10 @@ enableFeaturePreview("VERSION_CATALOGS")
 // enableFeaturePreview("ONE_LOCKFILE_PER_PROJECT")
 
 include(
-    ":app"
+    ":app",
+    ":feature:home",
+    ":feature:todo",
+    ":feature:settings",
 )
 
 // Sharing dependency versions
@@ -22,10 +25,10 @@ pluginManagement {
     plugins {
         val agpVersion: String by settings
         id ("com.android.application") version agpVersion
-        id ("com.android.library") version agpVersion
+        id ("com.android.library") version "7.1.0-alpha10"
 
         val kotlinVersion: String by settings
-        id ("org.jetbrains.kotlin.android") version kotlinVersion
+        id ("org.jetbrains.kotlin.android") version "1.5.30"
 
         val androidJUnit5Version: String by settings
         id("de.mannodermaus.android-junit5") version androidJUnit5Version
@@ -38,10 +41,10 @@ pluginManagement {
                     val agpCoordinates: String by settings
                     useModule(agpCoordinates)
                 }
-                /*"androidx.navigation.safeargs.kotlin" -> {
+                "androidx.navigation.safeargs.kotlin" -> {
                     val navigationCoordinates: String by settings
                     useModule(navigationCoordinates)
-                }*/
+                }
                 "de.mannodermaus.android-junit5" -> {
                     val androidJnit5Coordinates: String by settings
                     useModule(androidJnit5Coordinates)
@@ -65,6 +68,12 @@ dependencyResolutionManagement {
             alias("appcompat").to("androidx.appcompat:appcompat:1.+")
             alias("material").to("com.google.android.material:material:1.+")
             alias("constraintLayout").to("androidx.constraintlayout:constraintlayout:2.+")
+
+            val navigationVersion: String by settings
+            version("navigation", navigationVersion)
+            alias("navigation-fragment").to("androidx.navigation", "navigation-fragment-ktx").versionRef("navigation")
+            alias("navigation-ui-ktx").to("androidx.navigation", "navigation-ui-ktx").versionRef("navigation")
+            bundle("navigation", listOf("navigation-fragment", "navigation-ui-ktx"))
 
             alias("test-runner").to("androidx.test:runner:1.+")
             alias("test-rules").to("androidx.test:rules:1.+")
@@ -100,3 +109,6 @@ dependencyResolutionManagement {
         }
     }
 }
+include(":feature:home")
+include(":feature:todo")
+include(":feature:settings")
