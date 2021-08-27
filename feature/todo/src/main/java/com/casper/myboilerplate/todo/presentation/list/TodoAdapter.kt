@@ -3,11 +3,16 @@ package com.casper.myboilerplate.todo.presentation.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.casper.myboilerplate.shared.delegate.observer
 import com.casper.myboilerplate.todo.databinding.TodoItemBinding
 import com.casper.myboilerplate.todo.domain.model.Todo
+import javax.inject.Inject
 
-internal class TodoAdapter(private val todoItems: List<Todo>) :
-    RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
+class TodoAdapter @Inject constructor() : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
+
+    var todoItems: List<Todo> by observer(listOf()) {
+        notifyDataSetChanged()
+    }
 
     private var onClickListener: ((todo: Todo) -> Unit)? = null
 
@@ -32,7 +37,7 @@ internal class TodoAdapter(private val todoItems: List<Todo>) :
         this.onClickListener = listener
     }
 
-    internal inner class ViewHolder(private val binding: TodoItemBinding) :
+    inner class ViewHolder(private val binding: TodoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(todo: Todo) {

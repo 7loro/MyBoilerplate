@@ -26,13 +26,17 @@ pluginManagement {
     plugins {
         val agpVersion: String by settings
         id ("com.android.application") version agpVersion
-        id ("com.android.library") version "7.1.0-alpha10"
+        id ("com.android.library") version agpVersion
 
         val kotlinVersion: String by settings
-        id ("org.jetbrains.kotlin.android") version "1.5.30"
+        id ("org.jetbrains.kotlin.android") version kotlinVersion
+        id ("org.jetbrains.kotlin.kapt") version kotlinVersion
 
         val androidJUnit5Version: String by settings
         id("de.mannodermaus.android-junit5") version androidJUnit5Version
+
+        val hiltVersion: String by settings
+        id("dagger.hilt.android.plugin") version hiltVersion
     }
     resolutionStrategy {
         eachPlugin {
@@ -49,6 +53,10 @@ pluginManagement {
                 "de.mannodermaus.android-junit5" -> {
                     val androidJnit5Coordinates: String by settings
                     useModule(androidJnit5Coordinates)
+                }
+                "dagger.hilt.android.plugin" -> {
+                    val hiltCoordinates: String by settings
+                    useModule(hiltCoordinates)
                 }
             }
         }
@@ -71,6 +79,12 @@ dependencyResolutionManagement {
             alias("constraintLayout").to("androidx.constraintlayout:constraintlayout:2.+")
             alias("lifecycle").to("androidx.lifecycle:lifecycle-common-java8:2.+")
             alias("cardview").to("androidx.cardview:cardview:1.+")
+            alias("lottie").to("com.airbnb.android:lottie:2.+")
+
+            val hiltVersion: String by settings
+            version("hilt", hiltVersion)
+            alias("hilt").to("com.google.dagger", "hilt-android").versionRef("hilt")
+            alias("hiltCompiler").to("com.google.dagger", "hilt-android-compiler").versionRef("hilt")
 
             val navigationVersion: String by settings
             version("navigation", navigationVersion)

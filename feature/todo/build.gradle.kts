@@ -2,6 +2,8 @@ plugins {
     id(GradlePluginId.ANDROID_LIBRARY)
     id(GradlePluginId.KOTLIN_ANDROID)
     id(GradlePluginId.SAFE_ARGS)
+    id(GradlePluginId.KOTLIN_KAPT)
+    id(GradlePluginId.HILT)
 }
 
 android {
@@ -45,7 +47,10 @@ dependencies {
     api(libs.appcompat)
     api(libs.material)
     api(libs.cardview)
+    api(libs.lottie)
     api(libs.bundles.navigation)
+    api(libs.hilt)
+    kapt(libs.hiltCompiler)
 
     testApi(libs.bundles.test)
     testRuntimeOnly(libs.junit.jupiter.engine)

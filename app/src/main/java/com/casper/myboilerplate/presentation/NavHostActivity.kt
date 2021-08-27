@@ -7,7 +7,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.casper.myboilerplate.R
 import com.casper.myboilerplate.databinding.ActivityNavHostBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NavHostActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNavHostBinding
