@@ -1,3 +1,7 @@
 package com.casper.myboilerplate.todo.domain.model
 
-data class Todo(val title: String, val desc: String)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Todo(val id: Int? = null, val title: String, val desc: String) : Parcelable

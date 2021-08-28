@@ -50,7 +50,7 @@ dependencies {
     api(libs.constraintLayout)
     api(libs.bundles.navigation)
     api(libs.hilt)
-    kapt(libs.hiltCompiler)
+    kapt(libs.hilt.compiler)
 
     testApi(libs.bundles.test)
     testRuntimeOnly(libs.junit.jupiter.engine)

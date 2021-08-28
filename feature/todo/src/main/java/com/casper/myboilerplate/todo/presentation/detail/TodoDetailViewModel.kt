@@ -1,4 +1,4 @@
-package com.casper.myboilerplate.todo.presentation.add
+package com.casper.myboilerplate.todo.presentation.detail
 
 import androidx.lifecycle.viewModelScope
 import com.casper.myboilerplate.shared.presentation.viewmodel.BaseAction
@@ -6,21 +6,22 @@ import com.casper.myboilerplate.shared.presentation.viewmodel.BaseViewModel
 import com.casper.myboilerplate.shared.presentation.viewmodel.BaseViewState
 import com.casper.myboilerplate.todo.domain.model.Todo
 import com.casper.myboilerplate.todo.domain.usecase.AddTodoUseCase
+import com.casper.myboilerplate.todo.domain.usecase.DeleteTodoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TodoAddViewModel @Inject constructor(
-    private val addTodoUseCase: AddTodoUseCase
-) : BaseViewModel<TodoAddViewModel.ViewState, TodoAddViewModel.Action>(ViewState()) {
+class TodoDetailViewModel @Inject constructor(
+    private val deleteTodoUseCase: DeleteTodoUseCase
+) : BaseViewModel<TodoDetailViewModel.ViewState, TodoDetailViewModel.Action>(ViewState()) {
 
-    fun addTodo(todo: Todo) {
+    fun delete(todo: Todo) {
         viewModelScope.launch {
-            addTodoUseCase.execute(todo).also { result ->
+            deleteTodoUseCase.execute(todo).also { result ->
                 val action = when (result) {
-                    is AddTodoUseCase.Result.Success -> Action.TodoAddSuccess
-                    is AddTodoUseCase.Result.Error -> Action.TodoAddFailure
+                    is DeleteTodoUseCase.Result.Success -> Action.TodoDeleteSuccess
+                    is DeleteTodoUseCase.Result.Error -> Action.TodoDeleteFailure
                 }
                 sendAction(action)
             }
@@ -28,26 +29,23 @@ class TodoAddViewModel @Inject constructor(
     }
 
     override fun onReduceState(viewAction: Action) = when (viewAction) {
-        is Action.TodoAddSuccess -> state.copy(
-            isLoading = false,
+        is Action.TodoDeleteSuccess -> state.copy(
             isError = false,
-            isSaved = true
+            isDeleted = true
         )
-        is Action.TodoAddFailure -> state.copy(
-            isLoading = false,
+        is Action.TodoDeleteFailure -> state.copy(
             isError = true,
-            isSaved = false
+            isDeleted = false
         )
     }
 
     data class ViewState(
-        val isLoading: Boolean = true,
         val isError: Boolean = false,
-        val isSaved: Boolean = false
+        val isDeleted: Boolean = false
     ) : BaseViewState
 
     sealed interface Action : BaseAction {
-        object TodoAddSuccess : Action
-        object TodoAddFailure : Action
+        object TodoDeleteSuccess : Action
+        object TodoDeleteFailure : Action
     }
 }

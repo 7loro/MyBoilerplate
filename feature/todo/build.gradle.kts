@@ -4,6 +4,7 @@ plugins {
     id(GradlePluginId.SAFE_ARGS)
     id(GradlePluginId.KOTLIN_KAPT)
     id(GradlePluginId.HILT)
+    id(GradlePluginId.KOTLIN_PARCELIZE)
 }
 
 android {
@@ -50,7 +51,9 @@ dependencies {
     api(libs.lottie)
     api(libs.bundles.navigation)
     api(libs.hilt)
-    kapt(libs.hiltCompiler)
+    kapt(libs.hilt.compiler)
+    api(libs.bundles.room)
+    kapt(libs.room.compiler)
 
     testApi(libs.bundles.test)
     testRuntimeOnly(libs.junit.jupiter.engine)

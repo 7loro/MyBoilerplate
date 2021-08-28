@@ -21,11 +21,11 @@
         android:hint="Input Content"
         android:gravity="top"
         app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintBottom_toTopOf="@id/save_btn"
+        app:layout_constraintBottom_toTopOf="@id/saveBtn"
         tools:text="Input Desc"/>
 
     <Button
-        android:id="@+id/save_btn"
+        android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SAVE"

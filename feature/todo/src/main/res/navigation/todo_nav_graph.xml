@@ -21,16 +21,20 @@
         android:name="com.casper.myboilerplate.todo.presentation.detail.TodoDetailFragment"
         android:label="TodoDetailFragment">
         <argument
-            android:name="title"
-            app:argType="string" />
-        <argument
-            android:name="desc"
-            app:argType="string" />
+            android:name="todoItem"
+            app:argType="com.casper.myboilerplate.todo.domain.model.Todo" />
+        <action
+            android:id="@+id/actionTodoDetailFragmentToTodoListFragment"
+            app:destination="@id/todoListFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/todoAddFragment"
         android:name="com.casper.myboilerplate.todo.presentation.add.TodoAddFragment"
-        android:label="TodoAddFragment" />
+        android:label="TodoAddFragment">
+        <action
+            android:id="@+id/actionTodoAddFragmentToTodoListFragment"
+            app:destination="@id/todoListFragment"/>
+    </fragment>
 
 </navigation>

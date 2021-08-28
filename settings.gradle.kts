@@ -31,6 +31,7 @@ pluginManagement {
         val kotlinVersion: String by settings
         id ("org.jetbrains.kotlin.android") version kotlinVersion
         id ("org.jetbrains.kotlin.kapt") version kotlinVersion
+        id ("org.jetbrains.kotlin.plugin.parcelize") version kotlinVersion
 
         val androidJUnit5Version: String by settings
         id("de.mannodermaus.android-junit5") version androidJUnit5Version
@@ -84,13 +85,20 @@ dependencyResolutionManagement {
             val hiltVersion: String by settings
             version("hilt", hiltVersion)
             alias("hilt").to("com.google.dagger", "hilt-android").versionRef("hilt")
-            alias("hiltCompiler").to("com.google.dagger", "hilt-android-compiler").versionRef("hilt")
+            alias("hilt.compiler").to("com.google.dagger", "hilt-android-compiler").versionRef("hilt")
 
             val navigationVersion: String by settings
             version("navigation", navigationVersion)
             alias("navigation-fragment").to("androidx.navigation", "navigation-fragment-ktx").versionRef("navigation")
             alias("navigation-ui-ktx").to("androidx.navigation", "navigation-ui-ktx").versionRef("navigation")
             bundle("navigation", listOf("navigation-fragment", "navigation-ui-ktx"))
+
+            version("room", "2.+")
+            alias("room-ktx").to("androidx.room", "room-ktx").versionRef("room")
+            alias("room-runtime").to("androidx.room", "room-runtime").versionRef("room")
+            bundle("room", listOf("room-ktx", "room-runtime"))
+
+            alias("room.compiler").to("androidx.room", "room-compiler").versionRef("room")
 
             alias("test-runner").to("androidx.test:runner:1.+")
             alias("test-rules").to("androidx.test:rules:1.+")

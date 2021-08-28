@@ -2,9 +2,8 @@ package com.casper.myboilerplate.todo.presentation.list
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class TodoListFragment : Fragment(R.layout.fragment_todo_list) {
 
     private val binding: FragmentTodoListBinding by viewBinding()
-    private val viewModel: TodoListViewModel by activityViewModels()
+    private val viewModel: TodoListViewModel by viewModels()
     @Inject lateinit var todoAdapter: TodoAdapter
     private val stateObserver = Observer<TodoListViewModel.ViewState> {
         todoAdapter.todoItems = it.todolist
@@ -34,11 +33,7 @@ class TodoListFragment : Fragment(R.layout.fragment_todo_list) {
 
         todoAdapter.setOnClickListener {
             // TODO navigation util 만들기
-            val action =
-                TodoListFragmentDirections.actionTodoListFragmentToTodoDetailFragment(
-                    it.title,
-                    it.desc
-                )
+            val action = TodoListFragmentDirections.actionTodoListFragmentToTodoDetailFragment(it)
             findNavController().navigate(action)
         }
 
