@@ -6,3 +6,7 @@ Sample project for studying Android Clean Architecture
 - Kotlin
 - Jetpack
 - KTS
+  - Version Catalog
+- Clean Architecture
+- Multi module
+- MVVM + MVI
