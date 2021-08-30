@@ -18,6 +18,10 @@ class TodoRepositoryImpl @Inject constructor(
         return dao.insert(item.toEntity())
     }
 
+    override suspend fun updateTodoItem(item: Todo): Int {
+        return dao.update(item.toEntity())
+    }
+
     override suspend fun deleteTodoItem(id: Int): Int {
         return dao.delete(id)
     }

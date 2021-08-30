@@ -17,10 +17,14 @@ data class TodoEntity(
 internal fun TodoEntity.toDomainModel() =
     Todo(this.id, this.title, this.desc)
 
-internal fun Todo.toEntity() = TodoEntity(
-    title = this.title,
-    desc = this.desc
-)
+internal fun Todo.toEntity(): TodoEntity {
+    return this.id?.let { id ->
+        TodoEntity(id = id, title = this.title, desc = this.desc)
+    } ?: run {
+        TodoEntity(title = this.title, desc = this.desc)
+    }
+}
+
 /*
 internal class AlbumImageEntityTypeConverter {
     private val type = Types.newParameterizedType(List::class.java, AlbumImageEntity::class.java)

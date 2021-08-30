@@ -10,8 +10,7 @@ import com.casper.myboilerplate.shared.delegate.viewBinding
 import com.casper.myboilerplate.shared.presentation.extension.observe
 import com.casper.myboilerplate.todo.R
 import com.casper.myboilerplate.todo.databinding.FragmentTodoDetailBinding
-import com.casper.myboilerplate.todo.presentation.add.TodoAddFragmentDirections
-import com.casper.myboilerplate.todo.presentation.add.TodoAddViewModel
+import com.casper.myboilerplate.todo.domain.model.Todo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +20,7 @@ class TodoDetailFragment : Fragment(R.layout.fragment_todo_detail) {
     private val viewModel: TodoDetailViewModel by viewModels()
 
     private val stateObserver = Observer<TodoDetailViewModel.ViewState> {
-        if (it.isDeleted) {
+        if (it.isDone) {
             val action =
                 TodoDetailFragmentDirections.actionTodoDetailFragmentToTodoListFragment()
             findNavController().navigate(action)
@@ -36,10 +35,17 @@ class TodoDetailFragment : Fragment(R.layout.fragment_todo_detail) {
     private fun initialize() {
         arguments?.let {
             val args = TodoDetailFragmentArgs.fromBundle(it)
-            binding.title.text = args.todoItem.title
-            binding.desc.text = args.todoItem.desc
+            binding.title.setText(args.todoItem.title)
+            binding.desc.setText(args.todoItem.desc)
             binding.deleteBtn.setOnClickListener {
                 viewModel.delete(args.todoItem)
+            }
+            binding.updateBtn.setOnClickListener {
+                viewModel.update(Todo(
+                    id = args.todoItem.id,
+                    title = binding.title.text.toString(),
+                    desc = binding.desc.text.toString()
+                ))
             }
         }
         observe(viewModel.stateLiveData, stateObserver)
